@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 //
 // ImageLib Sources
-// Copyright (C) 2000-2009 by Denton Woods
+// Copyright (C) 2000-2017 by Denton Woods
 // Last modified: 03/01/2009
 //
 // Filename: src-IL/include/il_internal.h
@@ -13,15 +13,13 @@
 #define INTERNAL_H
 #define _IL_BUILD_LIBRARY
 
+// config.h is auto-generated
+#include "config.h"
 
-// Local headers
-/*#if (defined(_WIN32) || defined(_WIN64)) && !defined(HAVE_CONFIG_H)
-	#define HAVE_CONFIG_H
-#endif*/
-#ifdef HAVE_CONFIG_H //if we use autotools, we have HAVE_CONFIG_H defined and we have to look for it like that
-	#include <config.h>
-#else // If we do not use autotools, we have to point to (possibly different) config.h than in the opposite case
-	#include <IL/config.h>
+#if defined(__GNUC__) && __STDC_VERSION__ >= 199901L
+    // this makes various common-but-not-C99 functions visable in gcc -std-c99
+    // most notably, strdup, strcasecmp().
+    #define _GNU_SOURCE
 #endif
 
 // Standard headers
@@ -40,11 +38,6 @@ extern "C" {
 #include "il_endian.h"
 #include "il_manip.h"
 
-#ifndef _WIN32
-	// The Microsoft HD Photo Device Porting Kit has not been ported to anything other
-	//  than Windows yet, so we disable this if Windows is not the current platform.
-	#define IL_NO_WDP
-#endif//_WIN32
 
 // If we do not want support for game image formats, this define removes them all.
 #ifdef IL_NO_GAMES
@@ -350,6 +343,12 @@ ILboolean ilLoadJpegL(const void *Lump, ILuint Size);
 ILboolean ilSaveJpeg(ILconst_string FileName);
 ILuint    ilSaveJpegF(ILHANDLE File);
 ILuint    ilSaveJpegL(void *Lump, ILuint Size);
+ILboolean ilIsValidKtx(ILconst_string FileName);
+ILboolean ilIsValidKtxF(ILHANDLE File);
+ILboolean ilIsValidKtxL(const void *Lump, ILuint Size);
+ILboolean ilLoadKtx(ILconst_string FileName);
+ILboolean ilLoadKtxF(ILHANDLE File);
+ILboolean ilLoadKtxL(const void *Lump, ILuint Size);
 ILboolean ilIsValidLif(ILconst_string FileName);
 ILboolean ilIsValidLifF(ILHANDLE File);
 ILboolean ilIsValidLifL(const void *Lump, ILuint Size);
@@ -437,12 +436,18 @@ ILboolean ilLoadRawL(const void *Lump, ILuint Size);
 ILboolean ilSaveRaw(ILconst_string FileName);
 ILuint    ilSaveRawF(ILHANDLE File);
 ILuint    ilSaveRawL(void *Lump, ILuint Size);
-ILboolean ilLoadRot(ILconst_string FileName);
-ILboolean ilLoadRotF(ILHANDLE File);
-ILboolean ilLoadRotL(const void *Lump, ILuint Size);
 ILboolean ilIsValidRot(ILconst_string FileName);
 ILboolean ilIsValidRotF(ILHANDLE File);
 ILboolean ilIsValidRotL(const void *Lump, ILuint Size);
+ILboolean ilLoadRot(ILconst_string FileName);
+ILboolean ilLoadRotF(ILHANDLE File);
+ILboolean ilLoadRotL(const void *Lump, ILuint Size);
+ILboolean ilIsValidScitex(ILconst_string FileName);
+ILboolean ilIsValidScitexF(ILHANDLE File);
+ILboolean ilIsValidScitexL(const void *Lump, ILuint Size);
+ILboolean ilLoadScitex(ILconst_string FileName);
+ILboolean ilLoadScitexF(ILHANDLE File);
+ILboolean ilLoadScitexL(const void *Lump, ILuint Size);
 ILboolean ilIsValidSgi(ILconst_string FileName);
 ILboolean ilIsValidSgiF(ILHANDLE File);
 ILboolean ilIsValidSgiL(const void *Lump, ILuint Size);

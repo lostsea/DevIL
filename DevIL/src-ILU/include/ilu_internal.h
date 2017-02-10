@@ -35,12 +35,6 @@
 #define _IL_BUILD_LIBRARY
 #define _ILU_BUILD_LIBRARY
 
-#ifdef HAVE_CONFIG_H //if we use autotools, we have HAVE_CONFIG_H defined and we have to look for it like that
-#include <config.h>
-#else // if we don't use autotools, we have to point to (possibly different) config.h than in the opposite case
-#include <IL/config.h>
-#endif
-
 #include <IL/ilu.h>
 #include <IL/devil_internal_exports.h>
 
@@ -76,20 +70,11 @@ ILfloat ilCos(ILfloat Angle);
 ILfloat ilSin(ILfloat Angle);
 ILint ilRound(ILfloat Num);
 
-#ifndef NOINLINE
-INLINE ILfloat ilCos(ILfloat Angle) {
-	return (ILfloat)(cos(Angle * IL_DEGCONV));
-}
-
-INLINE ILfloat ilSin(ILfloat Angle) {
-	return (ILfloat)(sin(Angle * IL_DEGCONV));
-}
-
-
-INLINE ILint ilRound(ILfloat Num) {
-	return (ILint)(Num + 0.5); // this is truncating in away-from-0, not rounding
-}
-#endif
+/*#ifndef NOINLINE
+ILfloat ilCos(ILfloat Angle);
+ILfloat ilSin(ILfloat Angle);
+ILint ilRound(ILfloat Num);
+#endif*/
 
 
 
